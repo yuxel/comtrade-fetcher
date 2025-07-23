@@ -31,12 +31,6 @@ def group_by_n(s, n=3):
 periodsStr = '2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025'
 reporterCodesStr = '276,50'
 cmdCodesStr= '50'
-#theres a limit on api that you can send only 12 periods so we are looping it
-periods = group_by_n(periodsStr,10)
-
-reporterCodes = group_by_n(reporterCodesStr, 3)
-cmdCodes = group_by_n(cmdCodesStr)
-
 
 typeCode='C'
 freqCode='A'
@@ -50,6 +44,13 @@ motCode=None
 fileName="comtrade_data.csv"
 
 dfs = []
+
+#theres a limit on api that you can send only 12 periods so we are looping it
+periods = group_by_n(periodsStr,10)
+
+reporterCodes = group_by_n(reporterCodesStr, 5)
+cmdCodes = group_by_n(cmdCodesStr, 5)
+
 
 for period in periods:
     for reporterCode in reporterCodes:

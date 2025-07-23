@@ -63,6 +63,7 @@ for period in periods:
                                               aggregateBy=None, breakdownMode='plus', countOnly=None, includeDesc=True)
 
             if df is not None and not df.empty:
+                print(len(df), " records found")
                 dfs.append(df)
 
 
@@ -72,5 +73,6 @@ with warnings.catch_warnings():
 
 csv_path = os.path.join(directory, fileName)
 merged_df.to_csv(csv_path, index=False)
+print("\n--------------------------------------------\n")
+print(f"File saved to: data/{fileName} ({len(merged_df)} records written)")
 
-print("File saved to:", fileName, "(", len(merged_df), " records written )")

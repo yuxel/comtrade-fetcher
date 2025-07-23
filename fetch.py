@@ -19,22 +19,23 @@ args = parser.parse_args()
 
 subscription_key = args.subscription_key
 
-directory = 'data'
+def group_by_n(s, n=3):
+    items = s.split(',')  # ['1', '2', '3', ..., '6']
+    grouped = []
+    for i in range(0, len(items), n):
+        group = items[i:i+n]
+        grouped.append(','.join(group))
+    return grouped
 
+
+periodsStr = '2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025'
+reporterCodesStr = '276,50'
+cmdCodesStr= '50'
 #theres a limit on api that you can send only 12 periods so we are looping it
-periods = [
-    '2000,2001,2002,2003,2004,2005,2006,2007,2008,2009',
-    '2010,2011,2012,2013,2014,2015,2016,2017,2018,2019',
-    '2020,2021,2022,2023,2024,2025',
-]
+periods = group_by_n(periodsStr,10)
 
-reporterCodes = [
-    '276'
-]
-
-cmdCodes = [
-    '50'
-]
+reporterCodes = group_by_n(reporterCodesStr, 3)
+cmdCodes = group_by_n(cmdCodesStr)
 
 
 typeCode='C'
@@ -45,6 +46,7 @@ partnerCode='0'
 partner2Code='0'
 customsCode='c00'
 motCode=None
+
 fileName="comtrade_data.csv"
 
 dfs = []

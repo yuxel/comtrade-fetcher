@@ -29,17 +29,19 @@ def group_by_n(s, n=3):
 
 
 periodsStr = '2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025'
-reporterCodesStr = '276,50'
-cmdCodesStr= '50'
+reporterCodesStr = '276,50' #reporter 
+cmdCodesStr= '50' #commodity code, for total => 'total' veya  None 
 
-typeCode='C'
-freqCode='A'
-clCode='HS'
+typeCode='C' #C goods, S service
+freqCode='A' #A annual, M monthly
+clCode='HS' # Classification HS -> HS, SS -> SITC, S1, S2, S3, S4 , BEC -> B4 or B5
 flowCode='m' #m import x export   
-partnerCode='0'
-partner2Code='0'
-customsCode='c00'
-motCode=None
+partnerCode='0' #for World -> 0, others country codes with semicolon 
+partner2Code='0' #for World -> 0, others country codes with semicolon 
+customsCode='c00' #for all 'all', 'c00' total customs
+motCode=None # modes of transport for air '1000', all '-1', total modes of transport '0'
+breakdownMode='plus' #plus or classic
+aggregateBy=None #None or 'reportercode'
 
 fileName="comtrade_data.csv"
 
@@ -61,7 +63,7 @@ for period in periods:
                                               typeCode=typeCode, freqCode=freqCode, clCode=clCode, reporterCode=reporterCode, cmdCode=cmdCode, flowCode=flowCode,
                                               partnerCode=partnerCode, partner2Code=partner2Code, customsCode=customsCode, motCode=motCode,
                                               maxRecords=500000, format_output='JSON',
-                                              aggregateBy=None, breakdownMode='plus', countOnly=None, includeDesc=True)
+                                              aggregateBy=aggregateBy, breakdownMode=breakdownMode, countOnly=None, includeDesc=True)
 
             if df is not None and not df.empty:
                 print(len(df), " records found")
